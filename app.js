@@ -18,7 +18,7 @@ const testBuyer = {
 };
 
 const app = express();
-const URL = "quares-ventimiglia.herokuapp.com";
+const URL = "https://quares-ventimiglia.herokuapp.com/";
 const mpMail = "sventimiglia@quaresitsolutions.com";
 
 mercadopago.configure({
@@ -40,7 +40,6 @@ app.get("/", function (req, res) {
 });
 
 app.get("/detail", function (req, res) {
-  console.log("notifications", path.join(URL, "notifications"));
   res.render("detail", req.query);
 });
 
@@ -92,12 +91,12 @@ app.post("/checkout", function (req, res) {
     payer: payer,
     payment_methods: paymentMethods,
     back_urls: {
-      success: path.join(URL, "success"),
-      pending: path.join(URL, "pending"),
-      failure: path.join(URL, "failure"),
+      success: URL + "success",
+      pending: URL + "pending",
+      failure: URL + "failure",
     },
     auto_return: "approved",
-    notification_url: URL + "/" + "notifications",
+    notification_url: URL + "notifications",
     external_reference: mpMail,
   };
 
@@ -114,8 +113,8 @@ app.post("/checkout", function (req, res) {
 app.get("/success", function (req, res) {
   if (req.query.payment_id) {
     res.render("status", {
-      tittle: "Gracias por elegirnos!",
-      msg: "Su compra ha sido realizada exitosamente.",
+      title: "Gracias por elegirnos!",
+      message: "Su compra ha sido realizada exitosamente.",
       payment_info: {
         payment_id: req.query.payment_id,
         external_reference: req.query.external_reference,
@@ -129,8 +128,8 @@ app.get("/success", function (req, res) {
 app.get("/pending", function (req, res) {
   if (req.query.payment_id) {
     res.render("status", {
-      tittle: "Gracias por elegirnos!",
-      msg: "Su compra se encuentra pendiente.",
+      title: "Gracias por elegirnos!",
+      message: "Su compra se encuentra pendiente.",
       payment_info: {
         payment_id: req.query.payment_id,
         external_reference: req.query.external_reference,
@@ -144,8 +143,8 @@ app.get("/pending", function (req, res) {
 app.get("/failure", function (req, res) {
   if (req.query.payment_id) {
     res.render("status", {
-      tittle: "No pudimos procesar su pago",
-      msg:
+      title: "No pudimos procesar su pago",
+      message:
         "Hubo un error al momento de realizar la compra, por favor pruebe con otro medio.",
       payment_info: {
         payment_id: req.query.payment_id,
