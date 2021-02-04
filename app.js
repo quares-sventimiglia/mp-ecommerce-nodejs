@@ -18,7 +18,7 @@ const testBuyer = {
 };
 
 const app = express();
-const URL = "https://quares-ventimiglia.herokuapp.com";
+const URL = "quares-ventimiglia.herokuapp.com";
 const mpMail = "sventimiglia@quaresitsolutions.com";
 
 mercadopago.configure({
