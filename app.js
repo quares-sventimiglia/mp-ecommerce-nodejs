@@ -160,7 +160,8 @@ app.get("/failure", function (req, res) {
 app.post('/notifications', function (req, res) {
   fs.appendFile('./assets/log.txt', `\n${new Date()} ---> ${JSON.stringify(req.body)}`, function (err) {
       if (err) throw err;
-      console.log('Saved!');
+      console.log('Saved!', JSON.stringify(req.body));
+      console.log('Completed!', req.body);
     });
   res.sendStatus(200);
 });
