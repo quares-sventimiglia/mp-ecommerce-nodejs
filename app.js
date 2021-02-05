@@ -81,7 +81,7 @@ app.post("/checkout", function (req, res) {
       address: {
         street_name: "False",
         street_number: 123,
-        zip_code: "111",
+        zip_code: "1111",
       },
     },
     payment_methods: paymentMethods,
@@ -157,15 +157,11 @@ app.get("/failure", function (req, res) {
   }
 });
 
-app.get("/notifications", (req, res) => {
-  const jsonFile = require("./notifications.json");
-  res.send(jsonFile);
-});
-
-app.post("/notifications", (req, res) => {
-
-  console.log("notificacion", req.body);
-
+app.post('/notifications', function (req, res) {
+  fs.appendFile('./assets/log.txt', `\n${new Date()} ---> ${JSON.stringify(req.body)}`, function (err) {
+      if (err) throw err;
+      console.log('Saved!');
+    });
   res.sendStatus(200);
 });
 
